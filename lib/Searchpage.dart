@@ -1,3 +1,4 @@
+import 'package:final_project/HomePage1.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -43,7 +44,12 @@ class SearchPage extends StatelessWidget {
                 foregroundColor: Colors.blue, // Text color
               ),
               onPressed: () {
-                // Handle back button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          HomePage()), // Navigate to SearchPage
+                );
               },
             ),
             title: Container(

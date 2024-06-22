@@ -1,5 +1,7 @@
+import 'package:final_project/Profile.dart';
+import 'package:final_project/Verify_email2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// Import your confirmation screen
 
 void main() {
   runApp(MyApp());
@@ -18,38 +20,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class VerifyEmailScreen extends StatefulWidget {
-  @override
-  _VerifyEmailScreenState createState() => _VerifyEmailScreenState();
-}
-
-class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
-  // bool _isButtonDisabled = false;
-
-  // void _sendCodeAgain() {
-  //   setState(() {
-  //     _isButtonDisabled = true;
-  //   });
-
-  //   Future.delayed(Duration(seconds: 60), () {
-  //     setState(() {
-  //       _isButtonDisabled = false;
-  //     });
-  //   });
-  // }
-
+class VerifyEmailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        title: Text('Verify Email'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.blue, // Text color
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.blue,
           ),
           onPressed: () {
-            // Handle back button press
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            ); // Navigate back to the previous screen
           },
         ),
         elevation: 0,
@@ -65,23 +52,68 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             ),
             SizedBox(height: 30),
             Text(
-                'This helps us mitigate fraud\nand keep your personal data safe'),
+              'This helps us mitigate fraud\nand keep your personal data safe',
+              style: TextStyle(fontSize: 16),
+            ),
             Spacer(), // Spacer to push content to the top
-            GestureDetector(
-              // onTap: _isButtonDisabled ? null : _sendCodeAgain,
-              child: Container(
-                width: double.infinity, // Full width
-                padding: EdgeInsets.symmetric(vertical: 20),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          VerifyEmailScreen2()), // Navigate to confirmation screen
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  'Send Verification Email',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
+                padding: EdgeInsets.symmetric(vertical: 20),
+                minimumSize: Size(double.infinity, 0), // Full width
               ),
+              child: Text(
+                'Send Verification Email',
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EmailConfirmation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Email Confirmation'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back to the previous screen
+          },
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.email, size: 100, color: Colors.blue),
+            SizedBox(height: 20),
+            Text(
+              'Verification email sent!',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Check your email for further instructions.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
             ),
           ],
         ),

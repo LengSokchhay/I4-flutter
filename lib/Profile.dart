@@ -1,3 +1,5 @@
+import 'package:final_project/HomePage1.dart';
+import 'package:final_project/Verify_email.dart';
 import 'package:flutter/material.dart';
 import 'ProfileName.dart';
 import 'ProfileEmail.dart';
@@ -30,7 +32,10 @@ class ProfilePage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.blue),
           onPressed: () {
-            // Handle back action
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+            );
           },
         ),
         elevation: 4,
@@ -43,6 +48,12 @@ class ProfilePage extends StatelessWidget {
               label: 'Name',
               value: 'Choeng Kimlay',
               isVerified: false,
+              onEditPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileName()),
+                );
+              },
             ),
             SizedBox(height: 16.0),
             ProfileField(
@@ -52,12 +63,24 @@ class ProfilePage extends StatelessWidget {
               hasButton: true,
               buttonBackgroundColor: Colors.blue,
               buttonTextColor: Colors.white,
+              onEditPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileEmail()),
+                );
+              },
             ),
             SizedBox(height: 16.0),
             ProfileField(
               label: 'Mobile Number',
               value: 'mingfongmen@gmail.com',
               isVerified: true,
+              onEditPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileNumber()),
+                );
+              },
             ),
           ],
         ),
@@ -73,6 +96,7 @@ class ProfileField extends StatelessWidget {
   final bool hasButton;
   final Color? buttonBackgroundColor;
   final Color? buttonTextColor;
+  final VoidCallback? onEditPressed; // New callback for edit button
 
   ProfileField({
     required this.label,
@@ -81,6 +105,7 @@ class ProfileField extends StatelessWidget {
     this.hasButton = false,
     this.buttonBackgroundColor,
     this.buttonTextColor,
+    this.onEditPressed, // Initialize the callback
   });
 
   @override
@@ -104,12 +129,7 @@ class ProfileField extends StatelessWidget {
                 ),
                 IconButton(
                   icon: Icon(Icons.edit, color: Colors.blue),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfileName()),
-                    );
-                  },
+                  onPressed: onEditPressed, // Use the callback here
                 ),
               ],
             ),
@@ -127,7 +147,8 @@ class ProfileField extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfileEmail()),
+                    MaterialPageRoute(
+                        builder: (context) => VerifyEmailScreen()),
                   );
                 },
                 style: ButtonStyle(

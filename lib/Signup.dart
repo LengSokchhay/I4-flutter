@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'HomePage1.dart';
 
 class SignUp extends StatelessWidget {
   @override
@@ -62,7 +63,11 @@ class SignUp extends StatelessWidget {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Handle the next button press
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                            );
                           },
                           child: Text(
                             'Next',

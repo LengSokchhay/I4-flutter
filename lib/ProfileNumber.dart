@@ -1,3 +1,4 @@
+import 'package:final_project/Profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,12 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NameInputScreen(),
+      home: ProfileNumber(),
     );
   }
 }
 
-class NameInputScreen extends StatelessWidget {
+class ProfileNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,10 @@ class NameInputScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.blue),
           onPressed: () {
-            // Handle back button press
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
           },
         ),
         title: Text('Email'), // Changed title to 'Email'

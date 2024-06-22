@@ -1,3 +1,4 @@
+import 'package:final_project/Profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,7 +22,10 @@ class ProfileName extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.blue),
           onPressed: () {
-            // Handle back button press
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
           },
         ),
         title: Text('Name'),

@@ -1,3 +1,5 @@
+import 'package:final_project/Profile.dart';
+import 'package:final_project/Verify_email.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,7 +23,10 @@ class ProfileEmail extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.blue),
           onPressed: () {
-            // Handle back button press
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
           },
         ),
         title: Text('Email'), // Changed title to 'Email'
@@ -51,7 +56,11 @@ class ProfileEmail extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle the next button press
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => VerifyEmailScreen()),
+                  );
                 },
                 child: Text(
                   'Next',

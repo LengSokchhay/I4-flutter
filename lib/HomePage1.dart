@@ -1,4 +1,7 @@
+import 'package:final_project/Profile.dart';
+import 'package:final_project/landing_page.dart';
 import 'package:flutter/material.dart';
+import 'Searchpage.dart'; // Import your SearchPage
 
 void main() {
   runApp(MyApp());
@@ -14,78 +17,100 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  // GlobalKey to access ScaffoldState for opening the drawer
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey, // Assign the key to the Scaffold
       appBar: AppBar(
-        backgroundColor:
-            Colors.blue, // Set the app bar background color to blue
+        backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(Icons.menu, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            _scaffoldKey.currentState!
+                .openDrawer(); // Open the drawer using ScaffoldState
+          },
         ),
         titleSpacing: 0,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Mohasenapramuk Kim Il Sung',
-                style: TextStyle(fontSize: 20, color: Colors.white)),
-            Text('Phnom Peng',
-                style: TextStyle(fontSize: 16, color: Colors.white)),
+            Text(
+              'Mohasenapramuk Kim Il Sung',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            Text(
+              'Phnom Peng',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
           ],
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        SearchPage()), // Navigate to SearchPage
+              );
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.search, color: Colors.blue),
             onPressed: () {},
           ),
         ],
         bottom: PreferredSize(
-          preferredSize:
-              Size.fromHeight(70.0), // Adjust the preferred height as needed
+          preferredSize: Size.fromHeight(70.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors
-                  .blue, // Set the background color of the bottom section to blue
-              borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20.0)), // Set border radius here
+              color: Colors.blue,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
             ),
-            height: 50.0, // Set the height of the bottom container
+            height: 50.0,
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Set border radius for the search bar
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                  height: 40, // Set the height of the search bar to 40
+                  height: 40,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      Icon(Icons.search,
-                          color:
-                              Colors.grey), // Set the search icon color to grey
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: TextField(
-                          style: TextStyle(color: Colors.grey),
-                          decoration: InputDecoration(
-                            hintText: 'Search...',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            border: InputBorder.none,
-                            isCollapsed: true,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchPage()),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.search, color: Colors.grey),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: TextField(
+                            style: TextStyle(color: Colors.grey),
+                            decoration: InputDecoration(
+                              hintText: 'Search...',
+                              hintStyle: TextStyle(color: Colors.grey),
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Container(
-                  height: 5, // Empty container for style
-                  color: Colors
-                      .blue, // Set the background color of the empty container to blue
+                  height: 5,
+                  color: Colors.blue,
                 ),
               ],
             ),
@@ -116,6 +141,89 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("Choeng Kimlay"),
+              accountEmail: null,
+              currentAccountPicture: CircleAvatar(
+                child: Text("C"),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.local_offer, color: Colors.blue),
+              title: Text('Vouchers & offers'),
+              onTap: () {
+                // Handle vouchers & offers navigation
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.reorder, color: Colors.blue),
+              title: Text('Orders & reordering'),
+              onTap: () {
+                // Handle orders & reordering navigation
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person, color: Colors.blue),
+              title: Text('View Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.location_on, color: Colors.blue),
+              title: Text('Addresses'),
+              onTap: () {
+                // Handle addresses navigation
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.help, color: Colors.blue),
+              title: Text('Help Center'),
+              onTap: () {
+                // Handle help center navigation
+              },
+            ),
+            Divider(
+              thickness: 0.5,
+              color: Colors.grey,
+              height: 0,
+            ),
+            ListTile(
+              title: Text('Settings'),
+              onTap: () {
+                // Handle settings navigation
+              },
+            ),
+            ListTile(
+              title: Text('Terms & Conditions / Privacy'),
+              onTap: () {
+                // Handle terms & conditions navigation
+              },
+            ),
+            ListTile(
+              title: Text('Log out'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LandingPage()), // Navigate to SearchPage
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -126,8 +234,10 @@ class SpecialOffers extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Special Offers & Discount',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          'Special Offers & Discount',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 10),
         Row(
           children: [
@@ -168,13 +278,14 @@ class Items extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Restaurant',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          'Restaurant',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 10),
         Center(
           child: Container(
-            width:
-                MediaQuery.of(context).size.width, // Set width to screen width
+            width: MediaQuery.of(context).size.width,
             child: OfferCard(
               imageUrl:
                   'https://t4.ftcdn.net/jpg/02/94/26/33/360_F_294263329_1IgvqNgDbhmQNgDxkhlW433uOFuIDar4.jpg',
@@ -188,8 +299,7 @@ class Items extends StatelessWidget {
         ),
         Center(
           child: Container(
-            width:
-                MediaQuery.of(context).size.width, // Set width to screen width
+            width: MediaQuery.of(context).size.width,
             child: OfferCard(
               imageUrl:
                   'https://t4.ftcdn.net/jpg/02/94/26/33/360_F_294263329_1IgvqNgDbhmQNgDxkhlW433uOFuIDar4.jpg',
@@ -255,9 +365,10 @@ class OfferCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
                 if (rating != null)
                   Row(
                     children: [
@@ -335,29 +446,6 @@ class CuisinesSection2 extends StatelessWidget {
   }
 }
 
-class CuisineCard extends StatelessWidget {
-  final String cuisine;
-
-  CuisineCard({required this.cuisine});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Image.network('https://via.placeholder.com/100',
-                height: 50, width: 50),
-            SizedBox(height: 5),
-            Text(cuisine),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class CuisineItem extends StatelessWidget {
   final String imagePath;
   final String label;
@@ -370,7 +458,7 @@ class CuisineItem extends StatelessWidget {
       margin: EdgeInsets.only(right: 8.0),
       width: 80,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // Center align content
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
@@ -383,12 +471,11 @@ class CuisineItem extends StatelessWidget {
           ),
           SizedBox(height: 4),
           Flexible(
-            // Wrap text with Flexible to handle overflow
             child: Text(
               label,
               style: TextStyle(fontSize: 14),
-              textAlign: TextAlign.center, // Center align text
-              maxLines: 2, // Limit text to 2 lines
+              textAlign: TextAlign.center,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),

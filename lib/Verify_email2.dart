@@ -1,3 +1,4 @@
+import 'package:final_project/Verify_email.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,12 +13,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: VerifyEmailScreen(),
+      home: VerifyEmailScreen2(),
     );
   }
 }
 
-class VerifyEmailScreen extends StatelessWidget {
+class VerifyEmailScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,10 @@ class VerifyEmailScreen extends StatelessWidget {
             foregroundColor: Colors.blue, // Text color
           ),
           onPressed: () {
-            // Handle back button press
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => VerifyEmailScreen()),
+            );
           },
         ),
         elevation: 0,
